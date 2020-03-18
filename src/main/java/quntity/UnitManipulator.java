@@ -33,4 +33,14 @@ public class UnitManipulator {
         throw new UnitManipulatorException("Unit type not compatible", UnitManipulatorException
                 .ExceptionType.WRONG_UNIT_TYPE);
     }
+
+    public static double addition(UnitManipulator input1, UnitManipulator input2) throws UnitManipulatorException {
+        if (input1.unit.typeOfUnits.equals(input2.unit.typeOfUnits))  {
+            Double firstValue = input1.value*input1.unit.baseUnit;
+            Double secondValue = input2.value*input2.unit.baseUnit;
+            return Math.round(firstValue+secondValue);
+        }
+        throw new UnitManipulatorException("invalid unit type..cannot add temperatures", UnitManipulatorException
+                .ExceptionType.WRONG_UNIT_TYPE);
+    }
 }

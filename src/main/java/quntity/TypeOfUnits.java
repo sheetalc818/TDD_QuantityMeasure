@@ -1,5 +1,5 @@
 package quntity;
 
 public enum TypeOfUnits {
-    LENGTH
+    LENGTH,VOLUME,WEIGHT,TEMPERATURE
 }

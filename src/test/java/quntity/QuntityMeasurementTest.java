@@ -242,4 +242,45 @@ public class QuntityMeasurementTest {
             Assert.assertEquals(UnitManipulatorException.ExceptionType.WRONG_UNIT_TYPE, e.type);
         }
     }
+
+    @Test
+    public void given1gallonAnd3dot78litres_ShouldReturnTrue() {
+        boolean result = false;
+        try {
+            UnitManipulator gallon = new UnitManipulator(UnitConverter.ConvertUnit.GALLONS, 1);
+            UnitManipulator litre = new UnitManipulator(UnitConverter.ConvertUnit.LITRE, 3.78);
+            result = UnitManipulator.compare(gallon, litre);
+            Assert.assertTrue(result);
+        } catch (UnitManipulatorException e) {
+            Assert.assertEquals(UnitManipulatorException.ExceptionType.WRONG_UNIT_TYPE, e.type);
+        }
+    }
+
+    @Test
+    public void givenTwoDifferentUnitTypes_ShouldNotPerformComparision() {
+        boolean result = false;
+        try {
+            UnitManipulator gallon = new UnitManipulator(UnitConverter.ConvertUnit.GALLONS, 1);
+            UnitManipulator feet = new UnitManipulator(UnitConverter.ConvertUnit.FEET, 1);
+            result = UnitManipulator.compare(gallon, feet);
+            Assert.assertFalse(result);
+        } catch (UnitManipulatorException e) {
+            Assert.assertEquals(UnitManipulatorException.ExceptionType.WRONG_UNIT_TYPE, e.type);
+        }
+    }
+    //1 LITER = 1000ML
+    @Test
+    public void given1literAnd1000ml_ShouldReturnTrue() {
+        double result = 0;
+        try {
+            UnitManipulator liter = new UnitManipulator(UnitConverter.ConvertUnit.LITRE, 1);
+            UnitManipulator ml = new UnitManipulator(UnitConverter.ConvertUnit.ML, 1000);
+            result = UnitManipulator.addition(liter, ml);
+            Assert.assertTrue(true);
+        } catch (UnitManipulatorException e) {
+            Assert.assertEquals(UnitManipulatorException.ExceptionType.WRONG_UNIT_TYPE, e.type);
+        }
+    }
+
+
 }
