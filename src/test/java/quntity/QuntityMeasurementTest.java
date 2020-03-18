@@ -299,7 +299,7 @@ public class QuntityMeasurementTest {
         boolean result = false;
         try {
             UnitManipulator gallon = new UnitManipulator(UnitConverter.ConvertUnit.GALLONS, 1);
-            UnitManipulator litre = new UnitManipulator(UnitConverter.ConvertUnit.LITRE, 3.78);
+            UnitManipulator litre = new UnitManipulator(UnitConverter.ConvertUnit.LITER, 3.78);
             result = UnitManipulator.compare(gallon, litre);
             Assert.assertTrue(result);
         } catch (UnitManipulatorException e) {
@@ -312,7 +312,7 @@ public class QuntityMeasurementTest {
         double result = 0;
         try {
             UnitManipulator gallon = new UnitManipulator(UnitConverter.ConvertUnit.GALLONS, 1);
-            UnitManipulator litre = new UnitManipulator(UnitConverter.ConvertUnit.LITRE, 3.78);
+            UnitManipulator litre = new UnitManipulator(UnitConverter.ConvertUnit.LITER, 3.78);
             result = UnitManipulator.addition(gallon, litre);
             Assert.assertEquals(8,result,0.0);
         } catch (UnitManipulatorException e) {
@@ -324,12 +324,27 @@ public class QuntityMeasurementTest {
     public void given1literAnd1000ml_ShouldReturnTrue() {
         boolean result = false;
         try {
-            UnitManipulator liter = new UnitManipulator(UnitConverter.ConvertUnit.LITRE, 1);
+            UnitManipulator liter = new UnitManipulator(UnitConverter.ConvertUnit.LITER, 1);
             UnitManipulator ml = new UnitManipulator(UnitConverter.ConvertUnit.ML, 1000);
             result = UnitManipulator.compare(liter, ml);
         } catch (UnitManipulatorException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(true);
+        Assert.assertTrue(result);
     }
+
+    @Test
+    public void given1literAnd1000mlAfterAddition_ShouldReturn2liter() {
+        double result = 0;
+        try {
+            UnitManipulator liter = new UnitManipulator(UnitConverter.ConvertUnit.LITER, 1);
+            UnitManipulator ml = new UnitManipulator(UnitConverter.ConvertUnit.ML, 1000);
+            result = UnitManipulator.addition(liter,ml);
+            Assert.assertEquals(2,result,0.0);
+        } catch (UnitManipulatorException e) {
+            Assert.assertEquals(UnitManipulatorException.ExceptionType.WRONG_UNIT_TYPE, e.type);
+        }
+    }
+
+
 }
