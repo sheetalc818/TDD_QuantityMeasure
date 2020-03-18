@@ -211,7 +211,6 @@ public class QuntityMeasurementTest {
         try {
             UnitManipulator inches = new UnitManipulator(UnitConverter.ConvertUnit.INCHES, 36);
             UnitManipulator yard = new UnitManipulator(UnitConverter.ConvertUnit.YARD, 1);
-
             compareCheck = UnitManipulator.compare(inches, yard);
             Assert.assertTrue(compareCheck);
         } catch (UnitManipulatorException e) {
@@ -236,11 +235,63 @@ public class QuntityMeasurementTest {
         try {
             UnitManipulator inches = new UnitManipulator(UnitConverter.ConvertUnit.INCHES, 2);
             UnitManipulator cm = new UnitManipulator(UnitConverter.ConvertUnit.CENTIMETER, 5);
-            compareCheck = UnitManipulator.compare(inches,cm);
+            compareCheck = UnitManipulator.compare(inches, cm);
             Assert.assertTrue(compareCheck);
         } catch (UnitManipulatorException e) {
             Assert.assertEquals(UnitManipulatorException.ExceptionType.WRONG_UNIT_TYPE, e.type);
         }
+    }
+
+    @Test
+    public void given2inchAnd2inchAfterConversion__ShouldReturn4inch() {
+        double result = 0;
+        try {
+            UnitManipulator inch1 = new UnitManipulator(UnitConverter.ConvertUnit.INCHES, 2);
+            UnitManipulator inch2 = new UnitManipulator(UnitConverter.ConvertUnit.INCHES, 2);
+            result = UnitManipulator.addition(inch1, inch2);
+        } catch (UnitManipulatorException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(4, result, 0.0);
+    }
+
+    @Test
+    public void given1feetAnd2inchAfterConversion__ShouldReturn14inch() {
+        double result = 0;
+        try {
+            UnitManipulator feet = new UnitManipulator(UnitConverter.ConvertUnit.FEET, 1);
+            UnitManipulator inch = new UnitManipulator(UnitConverter.ConvertUnit.INCHES, 2);
+            result = UnitManipulator.addition(feet, inch);
+        } catch (UnitManipulatorException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(14, result, 0.0);
+    }
+
+    @Test
+    public void given1feetAnd1feetAfterConversion__ShouldReturn24inch() {
+        double result = 0;
+        try {
+            UnitManipulator feet1 = new UnitManipulator(UnitConverter.ConvertUnit.FEET, 1);
+            UnitManipulator feet2 = new UnitManipulator(UnitConverter.ConvertUnit.FEET, 1);
+            result = UnitManipulator.addition(feet1, feet2);
+        } catch (UnitManipulatorException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(24, result, 0.0);
+    }
+
+    @Test
+    public void given2inchesAnd2dotcmAfterConversion__ShouldReturn3inch() {
+        double result = 0;
+        try {
+            UnitManipulator inch = new UnitManipulator(UnitConverter.ConvertUnit.INCHES, 2);
+            UnitManipulator cm = new UnitManipulator(UnitConverter.ConvertUnit.CENTIMETER, 2.5);
+            result = UnitManipulator.addition(inch, cm);
+        } catch (UnitManipulatorException e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(3, result, 0.0);
     }
 
     @Test
@@ -257,30 +308,28 @@ public class QuntityMeasurementTest {
     }
 
     @Test
-    public void givenTwoDifferentUnitTypes_ShouldNotPerformComparision() {
-        boolean result = false;
+    public void given1gallonAnd3dot78litresAfterAddition_ShouldReturn7dot57liter() {
+        double result = 0;
         try {
             UnitManipulator gallon = new UnitManipulator(UnitConverter.ConvertUnit.GALLONS, 1);
-            UnitManipulator feet = new UnitManipulator(UnitConverter.ConvertUnit.FEET, 1);
-            result = UnitManipulator.compare(gallon, feet);
-            Assert.assertFalse(result);
+            UnitManipulator litre = new UnitManipulator(UnitConverter.ConvertUnit.LITRE, 3.78);
+            result = UnitManipulator.addition(gallon, litre);
+            Assert.assertEquals(8,result,0.0);
         } catch (UnitManipulatorException e) {
             Assert.assertEquals(UnitManipulatorException.ExceptionType.WRONG_UNIT_TYPE, e.type);
         }
     }
-    //1 LITER = 1000ML
+
     @Test
     public void given1literAnd1000ml_ShouldReturnTrue() {
-        double result = 0;
+        boolean result = false;
         try {
             UnitManipulator liter = new UnitManipulator(UnitConverter.ConvertUnit.LITRE, 1);
             UnitManipulator ml = new UnitManipulator(UnitConverter.ConvertUnit.ML, 1000);
-            result = UnitManipulator.addition(liter, ml);
-            Assert.assertTrue(true);
+            result = UnitManipulator.compare(liter, ml);
         } catch (UnitManipulatorException e) {
-            Assert.assertEquals(UnitManipulatorException.ExceptionType.WRONG_UNIT_TYPE, e.type);
+            e.printStackTrace();
         }
+        Assert.assertTrue(true);
     }
-
-
 }
