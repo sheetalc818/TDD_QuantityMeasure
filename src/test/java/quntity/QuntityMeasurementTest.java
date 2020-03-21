@@ -346,5 +346,54 @@ public class QuntityMeasurementTest {
         }
     }
 
+    //1 kg = 1000 grams
+    @Test
+    public void given1kgAnd1000gm_ShouldReturnTrue() {
+        boolean result = false;
+        try {
+            UnitManipulator kg = new UnitManipulator(UnitConverter.ConvertUnit.KG, 1);
+            UnitManipulator gram = new UnitManipulator(UnitConverter.ConvertUnit.GRAMS, 1000);
+            result = UnitManipulator.compare(kg, gram);
+        } catch (UnitManipulatorException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(result);
+    }
 
+    @Test
+    public void given1tonneAnd1000kgs_ShouldReturnTrue() {
+        boolean result = false;
+        try {
+            UnitManipulator tonne = new UnitManipulator(UnitConverter.ConvertUnit.TONNE, 1);
+            UnitManipulator kgs = new UnitManipulator(UnitConverter.ConvertUnit.KG, 1000);
+            result = UnitManipulator.compare(tonne, kgs);
+        } catch (UnitManipulatorException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void given212FahrenheitAnd100celsius_ShouldReturnTrue() {
+        UnitManipulator far = new UnitManipulator(UnitConverter.ConvertUnit.FAHRENHEIT, 212);
+        UnitManipulator cel = new UnitManipulator(UnitConverter.ConvertUnit.CELSIUS, 100);
+        Boolean result = cel.tempConversion(far);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void given100celsiusAnd212fahrenheit_ShouldReturnTrue() {
+        UnitManipulator cel = new UnitManipulator(UnitConverter.ConvertUnit.CELSIUS, 100);
+        UnitManipulator far = new UnitManipulator(UnitConverter.ConvertUnit.FAHRENHEIT, 212);
+        Boolean result = far.tempConversion(cel);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void given100celsiusAnd100fahrenheit_ShouldReturnFalse() {
+        UnitManipulator far = new UnitManipulator(UnitConverter.ConvertUnit.CELSIUS, 100);
+        UnitManipulator cel = new UnitManipulator(UnitConverter.ConvertUnit.FAHRENHEIT, 100);
+        Boolean result = cel.tempConversion(far);
+        Assert.assertFalse(result);
+    }
 }
