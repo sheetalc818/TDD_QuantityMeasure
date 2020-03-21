@@ -5,10 +5,6 @@ public class UnitManipulator {
     public double value = 0;
     public UnitConverter.ConvertUnit unit;
 
-    public static double convertion(double input) {
-        double result = input * 12.00;
-        return result;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -37,12 +33,22 @@ public class UnitManipulator {
     public static double addition(UnitManipulator input1, UnitManipulator input2) throws UnitManipulatorException {
         Double firstValue = null;
         Double secondValue = null;
-        if (input1.unit.typeOfUnits.equals(input2.unit.typeOfUnits)) {
+        if (input1.unit.typeOfUnits.equals(input2.unit.typeOfUnits) && input1.unit.typeOfUnits != TypeOfUnits.TEMPERATURE) {
             firstValue = input1.value * input1.unit.baseUnit;
             secondValue = input2.value * input2.unit.baseUnit;
             return Math.round(firstValue + secondValue);
         }
         throw new UnitManipulatorException("Unit type not compatible", UnitManipulatorException
                 .ExceptionType.WRONG_UNIT_TYPE);
+    }
+
+    public Boolean tempConversion(UnitManipulator that) {
+        Double temperature;
+        if (this.unit.equals(UnitConverter.ConvertUnit.FAHRENHEIT)) {
+            temperature = ((this.value - 32) * 5 / 9);
+        }else {
+            temperature = (this.value * 9 / 5) + 32;
+        }
+        return Double.compare(temperature,that.value) == 0;
     }
 }
